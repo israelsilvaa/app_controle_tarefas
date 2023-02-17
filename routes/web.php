@@ -1,8 +1,13 @@
 <?php
 
+namespace App\Mail;
+
+
 use App\Mail\MensagemTesteMail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,6 +29,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('tarefa', 'App\Http\Controllers\TarefaController');
 
 Route::get('/mensagem-teste', function(){
-    return new MensagemTesteMail();
+    // return new MensagemTesteMail();
+    Mail::to('israel524.is@gmail.com')->send(new MensagemTesteMail());
+    return 'E-mail enviado com secesso!';
 });
 
