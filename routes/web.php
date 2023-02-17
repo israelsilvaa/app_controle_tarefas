@@ -29,8 +29,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('tarefa', 'App\Http\Controllers\TarefaController');
 
 Route::get('/mensagem-teste', function(){
-    // return new MensagemTesteMail();
-    Mail::to('israel524.is@gmail.com')->send(new MensagemTesteMail());
-    return 'E-mail enviado com secesso!';
+    return new MensagemTesteMail();
+    // Mail::to('israel524.is@gmail.com')->send(new MensagemTesteMail());
+    // return 'E-mail enviado com secesso!';
 });
 
