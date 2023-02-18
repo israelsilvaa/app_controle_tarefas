@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header">Tarefas</div>
+                    <div class="card-header">Tarefas <a href="{{Route('tarefa.create')}}" class="float-right">Nova</a></div>
 
                     <div class="card-body">
 
