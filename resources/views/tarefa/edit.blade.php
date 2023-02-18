@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Atualizar tarefa<a href="{{Route('tarefa.index')}}" class="float-right">voltar</a></div>
+                <div class="card-header">Atualizar tarefa</div>
 
                 <div class="card-body">
                     <form method="post" action="{{ route('tarefa.update', ['tarefa' => $tarefa->id]) }}">

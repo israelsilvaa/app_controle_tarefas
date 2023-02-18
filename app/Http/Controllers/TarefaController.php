@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Mail;
 use App\Mail\NovaTarefaMail;
 use App\Models\Tarefa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
 
 class TarefaController extends Controller
 {
@@ -72,14 +72,13 @@ class TarefaController extends Controller
      */
     public function edit(Tarefa $tarefa)
     {
-        $userId = auth()->user()->id;
+        $user_id = auth()->user()->id;
 
-        if($tarefa->user_id == $userId){
+        if($tarefa->user_id == $user_id) {
             return view('tarefa.edit', ['tarefa' => $tarefa]);
-        }else{
-            return view('acesso-negado');
         }
 
+        return view('acesso-negado');
     }
 
     /**
@@ -91,14 +90,12 @@ class TarefaController extends Controller
      */
     public function update(Request $request, Tarefa $tarefa)
     {
-        $userId = auth()->user()->id;
-
-        if($tarefa->user_id == $userId){    
-            $tarefa->update($request->all());
-            return redirect()->route('tarefa.show', ['tarefa' => $tarefa->id]);
-        }else{
+        if(!$tarefa->user_id == auth()->user()->id) {
             return view('acesso-negado');
         }
+
+        $tarefa->update($request->all());
+        return redirect()->route('tarefa.show', ['tarefa' => $tarefa->id]);
     }
 
     /**
@@ -109,15 +106,10 @@ class TarefaController extends Controller
      */
     public function destroy(Tarefa $tarefa)
     {
-        $userId = auth()->user()->id;
-
-        if($tarefa->user_id == $userId){    
-            $tarefa->delete();
-        }else{
+        if(!$tarefa->user_id == auth()->user()->id) {
             return view('acesso-negado');
         }
-
+        $tarefa->delete();
         return redirect()->route('tarefa.index');
-        
     }
 }

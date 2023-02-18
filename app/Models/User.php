@@ -12,7 +12,7 @@ use App\Notifications\VerificarEmailNotification;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -47,9 +47,7 @@ class User extends Authenticatable implements MustVerifyEmail
         $this->notify(new RedefinirSenhaNotification($token, $this->email, $this->name));
     }
 
-
-    public function sendEmailVerificationNotification()
-    {
+    public function sendEmailVerificationNotification() {
         $this->notify(new VerificarEmailNotification($this->name));
     }
 }

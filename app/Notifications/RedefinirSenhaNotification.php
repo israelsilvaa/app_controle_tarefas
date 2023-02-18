@@ -10,10 +10,9 @@ use Illuminate\Notifications\Notification;
 class RedefinirSenhaNotification extends Notification
 {
     use Queueable;
-    public $email;
     public $token;
+    public $email;
     public $name;
-    
     /**
      * Create a new notification instance.
      *
@@ -47,14 +46,15 @@ class RedefinirSenhaNotification extends Notification
     {
         $url = 'http://localhost:8000/password/reset/'.$this->token.'?email='.$this->email;
         $minutos = config('auth.passwords.'.config('auth.defaults.passwords').'.expire');
-        $saudacao = 'Olá '. $this->name;
+        $saudacao = 'Olá '.$this->name;
+        
         return (new MailMessage)
             ->subject('Atualização de senha')
             ->greeting($saudacao)
-            ->line('Esqueceu a senha? sem problemas, vamos resolver isso!')
-            ->action('clique aqui para modificar a senha ', $url)
-            ->line('O link acima expira em '.$minutos. ' minutos')
-            ->line('Se você não requisitou a alteração de senha, emtão nenhuma ação é necessária')
+            ->line('Esqueceu a senha? Sem problemas, vamos resolver isso!!!')
+            ->action('Clique aqui para modificar a senha', $url)
+            ->line('O link acima expira em '.$minutos.' minutos')
+            ->line('Caso você não tenha requisitado a alteração de senha, então nenhuma ação é necessária.')
             ->salutation('Até breve!');
         }
 
