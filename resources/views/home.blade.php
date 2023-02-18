@@ -15,6 +15,10 @@
                     @endif
 
                     {{ __('Você está logado!') }}
+
+                </div>
+                <div class="card-body">
+                    <a href="{{route('tarefa.index')}}">Minhas Tarefas</a>
                 </div>
             </div>
         </div>
