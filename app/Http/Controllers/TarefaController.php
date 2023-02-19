@@ -9,9 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Foundation\Auth\User;
 use App\Exports\TarefasExport;
 use Maatwebsite\Excel\Facades\Excel;
+use PDF;
 
 class TarefaController extends Controller
-
 {
     public function __construct() {
         $this->middleware('auth');
@@ -118,12 +118,16 @@ class TarefaController extends Controller
     }
 
     public function exportacao($extensao) {
-    
-        if(in_array($extensao,['xlsx','csv','pdf'])){
+
+        if(in_array($extensao, ['xlsx', 'csv', 'pdf'])) {
             return Excel::download(new TarefasExport, 'lista_de_tarefas.'.$extensao);
-        }else{
-            return redirect()->route('tarefa.index');
         }
+        
+        return redirect()->route('tarefa.index');
     }
 
+    public function exportar() {
+        $pdf = PDF::loadView('tarefa.pdf', []);
+        return $pdf->download('lista_de_tarefas.pdf');
+    }
 }
